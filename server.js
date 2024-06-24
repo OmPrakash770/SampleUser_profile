@@ -636,7 +636,8 @@ app.post('/logout', (req, res) => {
 });
 
 // Profile creation/update endpoint with image upload
-app.post('/profile', isAuthenticated, upload.single('image'), (req, res) => {
+// app.post('/profile', isAuthenticated, upload.single('image'), (req, res) => {
+    app.post('/profile',upload.single('image'), (req, res) => {
     const { name, preferred_role, project, education, address, phone_no, linkedin_profile } = req.body;
     // const userId = req.session.user.id;
 
