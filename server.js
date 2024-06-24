@@ -638,7 +638,7 @@ app.post('/logout', (req, res) => {
 // Profile creation/update endpoint with image upload
 app.post('/profile', isAuthenticated, upload.single('image'), (req, res) => {
     const { name, preferred_role, project, education, address, phone_no, linkedin_profile } = req.body;
-    const userId = req.session.user.id;
+    // const userId = req.session.user.id;
 
     console.log("Request:",req.body);
     let imageBuffer = null;
@@ -648,7 +648,8 @@ app.post('/profile', isAuthenticated, upload.single('image'), (req, res) => {
     }
 
     db.execute(`
-        INSERT INTO user_profiles (user_id, name, preferred_role, project, education, address, phone_no, linkedin_profile, image)
+        // INSERT INTO user_profiles (user_id, name, preferred_role, project, education, address, phone_no, linkedin_profile, image)
+        INSERT INTO user_profiles (name, preferred_role, project, education, address, phone_no, linkedin_profile, image)
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
         ON DUPLICATE KEY UPDATE 
             name = VALUES(name), 
@@ -658,8 +659,10 @@ app.post('/profile', isAuthenticated, upload.single('image'), (req, res) => {
             address = VALUES(address), 
             phone_no = VALUES(phone_no),
             linkedin_profile = VALUES(linkedin_profile), 
-            image = VALUES(image)
-    `, [userId, name, preferred_role, project, education, address, phone_no, linkedin_profile, imageBuffer], (err) => {
+            image = VALUES(image)`
+    // , [userId, name, preferred_role, project, education, address, phone_no, linkedin_profile, imageBuffer], (err) => {
+        , [ name, preferred_role, project, education, address, phone_no, linkedin_profile, imageBuffer], (err) => {
+        
         if (err) {
             return res.status(500).json({ error: err });
         }
