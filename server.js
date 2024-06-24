@@ -543,8 +543,8 @@ app.use(morgan('dev'));
 // MySQL connection setup
 const db = mysql.createConnection({
     host: 'localhost',
-    user: 'your-username',
-    password: 'your-password',
+    user: 'root',
+    password: 'root',
     database: 'user_management_db'
 });
 
